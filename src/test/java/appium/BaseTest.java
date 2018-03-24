@@ -18,8 +18,8 @@ public abstract class BaseTest {
     protected AppiumDriver<MobileElement> wd;
     protected DesiredCapabilities capabilities;
     protected static Logger logger = LoggerFactory.getLogger(BaseTest.class);
-    protected static String AppPath="/Users/17787/Downloads";
-    protected static String AppName="Myntra-Android-universal-release (27).apk";
+    protected static String AppPath="/Path to your apk";
+    protected static String AppName="apk name(.apk file)";
 
 
     public void setUpTest() throws IOException {

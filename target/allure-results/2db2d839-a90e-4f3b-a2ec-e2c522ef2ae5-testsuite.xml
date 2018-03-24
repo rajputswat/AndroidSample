@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:test-suite start="1521882459870" stop="1521882486463" version="1.5.4" xmlns:ns2="urn:model.allure.qatools.yandex.ru">
+    <name>Default Suite : sample</name>
+    <title>Default Suite : sample</title>
+    <test-cases>
+        <test-case start="1521882474619" stop="1521882485364" status="passed">
+            <name>mainPageTest</name>
+            <steps/>
+            <attachments/>
+            <labels>
+                <label name="testSuite" value="Default Suite"/>
+                <label name="testGroup" value="sample"/>
+                <label name="testClass" value="appium.android.sample.AndroidAppiumExampleTest"/>
+                <label name="testMethod" value="mainPageTest"/>
+                <label name="host" value="EN-SwatantraR"/>
+                <label name="thread" value="48892@EN-SwatantraR.main(1)"/>
+            </labels>
+        </test-case>
+    </test-cases>
+    <labels>
+        <label name="framework" value="TestNG"/>
+        <label name="language" value="JAVA"/>
+    </labels>
+</ns2:test-suite>

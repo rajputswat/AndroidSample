@@ -18,8 +18,8 @@ public abstract class BaseTest {
     protected AppiumDriver<MobileElement> wd;
     protected DesiredCapabilities capabilities;
     protected static Logger logger = LoggerFactory.getLogger(BaseTest.class);
-    protected static String AppPath="/Path to your apk";
-    protected static String AppName="apk name(.apk file)";
+    protected static String AppPath="/Users/17787/Downloads";
+    protected static String AppName="Blibli-App-for-Android-4.5.0-(1025).apk";
 
 
     public void setUpTest() throws IOException {

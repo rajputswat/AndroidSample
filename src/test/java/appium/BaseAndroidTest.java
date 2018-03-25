@@ -2,6 +2,7 @@ package appium;
 
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
@@ -13,31 +14,35 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import ru.yandex.qatools.allure.annotations.Attachment;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class BaseAndroidTest extends BaseTest {
 
 	@Override
 	protected void setAppiumDriver() throws IOException {
-	    logger.debug("Setting up AndroidDriver");
+		logger.debug("Setting up AndroidDriver");
 		this.wd = new AndroidDriver<MobileElement>(new URL(getAppiumServerAddress() + "/wd/hub"),
 				capabilities);
+		wd.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 	}
 
 
-    @Override
-    protected String getDesiredCapabilitiesPropertiesFileName() {
+	@Override
+	protected String getDesiredCapabilitiesPropertiesFileName() {
 
-            return "desiredCapabilities.android.clientside.properties";
-    }
-	@BeforeClass
+		return "desiderCapabilities";
+	}
+	@BeforeMethod
 	public void setUp() throws Exception {
 		setUpTest();
+		login("flight@gmail.com","mradu123");
 	}
 	@Attachment("Screenshot on failure")
 	public byte[] makeScreenshotOnFailure() {
@@ -65,8 +70,8 @@ public class BaseAndroidTest extends BaseTest {
 			e.printStackTrace();
 		}
 
-		// driver.closeApp();
-		// driver.quit();
+		wd.closeApp();
+		wd.quit();
 	}
 	/**
 	 * give total window height and width
@@ -85,24 +90,47 @@ public class BaseAndroidTest extends BaseTest {
 	{
 		wd.swipe(x-50,Y-50,10,Y-50,500);
 	}
-//	/*
-//       verify if element is present or not
-//    */
-//	protected boolean isElementPresent(String element)
-//	{
-//		try
-//		{
-//			if(wd.findElement(element) == null)
-//			{
-//				return false;
-//			};
-//
-//			return true;
-//		}
-//		catch (Exception e)
-//		{
-//			return false;
-//		}
-//	}
+	/**
+	 * login
+	 */
+	public void login(String username,String password)throws Exception
+	{
+		int count=0;
+		Thread.sleep(1000);
+		while (count<5) {
+			horizintalSwipe(Integer.parseInt(getWindowSize().get(0).toString()), Integer.parseInt(getWindowSize().get(1).toString()));
+			count++;
+		}
+		wd.findElement(By.id("blibli.mobile.commerce:id/login_button")).click();
+		Thread.sleep(3000);
+		wd.findElement(By.id("blibli.mobile.commerce:id/et_user_email_id")).sendKeys(username);
+		wd.findElement(By.id("blibli.mobile.commerce:id/et_user_password")).sendKeys(password);
+		wd.findElement(By.id("blibli.mobile.commerce:id/bt_login")).click();
+	}
+	/**
+	 * add text to be scrolled
+	 * @param text
+	 */
+	public void scroll( String text)
+	{
+
+		wd.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView(" + "new UiSelector().text(\""+text+"\"));"));
+
+
+	}
+
+	/**
+	 * checks if an element is present or not
+	 * @param by
+	 * @return
+	 */
+	public boolean isElementPresent(By by) {
+		try {
+			wd.findElements(by);
+			return true;
+		} catch (org.openqa.selenium.NoSuchElementException e) {
+			return false;
+		}
+	}
 
 }

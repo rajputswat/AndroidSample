@@ -18,7 +18,7 @@ public abstract class BaseTest {
     protected AppiumDriver<MobileElement> wd;
     protected DesiredCapabilities capabilities;
     protected static Logger logger = LoggerFactory.getLogger(BaseTest.class);
-    protected static String AppPath="/Users/17787/Downloads";
+    protected static String AppPath="/Users/17787/Documents";
     protected static String AppName="Blibli-App-for-Android-4.5.0-(1025).apk";
 
 
@@ -31,7 +31,7 @@ public abstract class BaseTest {
         this.capabilities = desiredCapabilities;
         File appDir = new File(AppPath);
         File app = new File(appDir, AppName);
-        capabilities.setCapability("app", app.getPath());
+        capabilities.setCapability("app", app.getAbsolutePath());
         setAppiumDriver();
     }
 

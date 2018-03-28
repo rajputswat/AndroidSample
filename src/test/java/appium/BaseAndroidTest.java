@@ -28,9 +28,9 @@ public class BaseAndroidTest extends BaseTest {
 	@Override
 	protected void setAppiumDriver() throws IOException {
 		logger.debug("Setting up AndroidDriver");
-		this.wd = new AndroidDriver<MobileElement>(new URL(getAppiumServerAddress() + "/wd/hub"),
+		this.driver = new AndroidDriver<MobileElement>(new URL(getAppiumServerAddress() + "/wd/hub"),
 				capabilities);
-		wd.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 	}
 
 
@@ -47,7 +47,7 @@ public class BaseAndroidTest extends BaseTest {
 	@Attachment("Screenshot on failure")
 	public byte[] makeScreenshotOnFailure() {
 		logger.debug("Taking screenshot");
-		return  ((TakesScreenshot) wd).getScreenshotAs(OutputType.BYTES);
+		return  ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 
 		//return ((TakesScreenshot) .getScreenshotAs(OutputType.BYTES);
 	}
@@ -70,8 +70,8 @@ public class BaseAndroidTest extends BaseTest {
 			e.printStackTrace();
 		}
 
-		wd.closeApp();
-		wd.quit();
+		driver.closeApp();
+		driver.quit();
 	}
 	/**
 	 * give total window height and width
@@ -79,8 +79,8 @@ public class BaseAndroidTest extends BaseTest {
 	 */
 	public List getWindowSize()
 	{
-		Integer y=wd.manage().window().getSize().getHeight();
-		Integer x=wd.manage().window().getSize().getWidth();
+		Integer y=driver.manage().window().getSize().getHeight();
+		Integer x=driver.manage().window().getSize().getWidth();
 		ArrayList<Integer> cordinates=new ArrayList();
 		cordinates.add(y);
 		cordinates.add(x);
@@ -88,7 +88,7 @@ public class BaseAndroidTest extends BaseTest {
 	}
 	public void horizintalSwipe(Integer Y,Integer x)
 	{
-		wd.swipe(x-50,Y-50,10,Y-50,500);
+		driver.swipe(x-50,Y-50,10,Y-50,500);
 	}
 	/**
 	 * login
@@ -101,11 +101,12 @@ public class BaseAndroidTest extends BaseTest {
 			horizintalSwipe(Integer.parseInt(getWindowSize().get(0).toString()), Integer.parseInt(getWindowSize().get(1).toString()));
 			count++;
 		}
-		wd.findElement(By.id("blibli.mobile.commerce:id/login_button")).click();
+		driver.findElement(By.id("blibli.mobile.commerce:id/login_button")).click();
 		Thread.sleep(3000);
-		wd.findElement(By.id("blibli.mobile.commerce:id/et_user_email_id")).sendKeys(username);
-		wd.findElement(By.id("blibli.mobile.commerce:id/et_user_password")).sendKeys(password);
-		wd.findElement(By.id("blibli.mobile.commerce:id/bt_login")).click();
+		driver.findElement(By.id("blibli.mobile.commerce:id/et_user_email_id")).sendKeys(username);
+		driver.findElement(By.id("blibli.mobile.commerce:id/et_user_password")).sendKeys(password);
+		driver.findElement(By.id("blibli.mobile.commerce:id/bt_login")).click();
+
 	}
 	/**
 	 * add text to be scrolled
@@ -114,7 +115,7 @@ public class BaseAndroidTest extends BaseTest {
 	public void scroll( String text)
 	{
 
-		wd.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView(" + "new UiSelector().text(\""+text+"\"));"));
+		driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView(" + "new UiSelector().text(\""+text+"\"));"));
 
 
 	}
@@ -126,7 +127,7 @@ public class BaseAndroidTest extends BaseTest {
 	 */
 	public boolean isElementPresent(By by) {
 		try {
-			wd.findElements(by);
+			driver.findElements(by);
 			return true;
 		} catch (org.openqa.selenium.NoSuchElementException e) {
 			return false;

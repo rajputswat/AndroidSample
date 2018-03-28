@@ -15,7 +15,7 @@ import java.util.Set;
 
 public abstract class BaseTest {
     private static final String LOCAL_APPIUM_ADDRESS = "http://localhost:4723";
-    protected AppiumDriver<MobileElement> wd;
+    protected AppiumDriver driver;
     protected DesiredCapabilities capabilities;
     protected static Logger logger = LoggerFactory.getLogger(BaseTest.class);
     protected static String AppPath="/Users/17787/Documents";
@@ -86,7 +86,7 @@ public abstract class BaseTest {
     protected File takeScreenshot(String screenshotName) {
         String fullFileName = System.getProperty("user.dir") + "/screenshots/" + screenshotName + ".png";
         logger.debug("Taking screenshot...");
-        File scrFile = ((TakesScreenshot) wd).getScreenshotAs(OutputType.FILE);
+        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 
         try {
             File testScreenshot = new File(fullFileName);

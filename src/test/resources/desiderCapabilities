@@ -2,3 +2,4 @@ platformName=Android
 deviceName=Android Emulator
 appPackage=blibli.mobile.commerce
 appActivity=blibli.mobile.ng.commerce.core.init.view.SplashActivity
+automationName=UiAutomator2
